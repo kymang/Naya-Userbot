@@ -31,8 +31,8 @@ from dotenv import load_dotenv
 load_dotenv("p.env")
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "6450679325:AAH7rDIyR_6eAvqJjbXSQa5XE1kzgAUgi_8")
-API_ID = int(os.environ.get("API_ID", "5469720"))
-API_HASH = os.environ.get("API_HASH", "d69086dbd5605db7bfdf334daff7b917")
+API_ID = int(os.environ.get("API_ID", "28358285"))
+API_HASH = os.environ.get("API_HASH", "8930157ab19270574cd27b89f215d49a")
 
 Bot = Client("Server",
             api_id=API_ID,
