@@ -30,16 +30,16 @@ from dotenv import load_dotenv
 
 load_dotenv("p.env")
 
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "5430644718:AAF1ms28hsa9GvoaggywA7c8EuQm0uXKvBc")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "6450679325:AAH7rDIyR_6eAvqJjbXSQa5XE1kzgAUgi_8")
 API_ID = int(os.environ.get("API_ID", "5469720"))
 API_HASH = os.environ.get("API_HASH", "d69086dbd5605db7bfdf334daff7b917")
 
-Bukan = Client("BukanDev",
+Bot = Client("Server",
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN)
             
-print("Bot telah aktif")
+print("Server Berhasil Diaktifkan")
 
 async def updateme_requirements():
     reqs = str(requirements_path)
@@ -70,115 +70,112 @@ def fetch_heroku_git_url(api_heroku, name_ku):
     return heroku_app.git_url.replace("https://", "https://api:" + api_heroku + "@")
 
         
-@Bukan.on_message(filters.private & filters.command("start"))
+@Bot.on_message(filters.private & filters.command("start"))
 async def start_message(client, message):
-    bot = await Bukan.get_me()
-    await Bukan.send_message(
+    bot = await Bot.get_me()
+    await Bot.send_message(
         message.chat.id,
-        text=f"Hay {message.from_user.mention} saya adalah {bot.mention} Akan membantu kamu dalam mendeploy repo kami di heroku silahkan pilih repo mana aja yg mau di deploy.",
+        text=f"Halo {message.from_user.mention}",
         reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                     InlineKeyboardButton("PRIME-USERBOT", callback_data="deploy")
+                     InlineKeyboardButton("Deploy", callback_data="adubot")
                     ]
                ]
             )
     )
     
 
-@Bukan.on_callback_query(filters.regex("deploy"))
+@Bot.on_callback_query(filters.regex("deploy"))
 async def deployprime(client, callback_query):
     await callback_query.message.reply(
-    text = "Silahkan pilih di bawah ini \n=> LOGIN -> deploy via nomer\n=> SESSION -> Deploy via strings",
+    text = "Pilih salah satu dibawah ini",
     reply_markup = InlineKeyboardMarkup(
                     [
                         [
-                         InlineKeyboardButton("LOGIN", callback_data="prime")
+                         InlineKeyboardButton("LOGIN", callback_data="adubot")
                         ],
-                        [
-                        InlineKeyboardButton("SESSION", callback_data="session")
-                        ]
                    ]
                 )
     )
     
-@Bukan.on_callback_query(filters.regex("prime"))
+@Bot.on_callback_query(filters.regex("adubot"))
 async def cbprimeubot(client, callback_query):
     await prime_userbot(client, callback_query.message)
 
-@Bukan.on_callback_query(filters.regex("session"))
+@Bot.on_callback_query(filters.regex("session"))
 async def cbsession(client, callback_query):
     await prime_userbot1(client, callback_query.message)
     
 
 async def prime_userbot(client, message):
     user_id = message.chat.id
-    heroku_api = await Bukan.ask(user_id, "**Silahkan masukkan HEROKU_API anda**\n\n[KLIK DI SINI](https://dashboard.heroku.com/account/applications/authorizations/new)", filters=filters.text)
+    heroku_api = await Bot.ask(user_id, "**Masukin HEROKU_API jing...**\n\n[Ambil Disini Pler](https://dashboard.heroku.com/account/applications/authorizations/new)", filters=filters.text)
     if await is_cancel(heroku_api):
         return
     api_heroku = heroku_api.text
     memek = heroku3.from_key(api_heroku)
     hasil_conn = test_connection(memek)
     if not hasil_conn:
-        await Bukan.send_message(user_id, "**HEROKU_API Salah silahkan klik** /start")
+        await Bot.send_message(user_id, "**HEROKU_API salah goblog** Ulangin dari awal!")
         return
     else:
-        await Bukan.send_message(user_id, "**HEROKU_API_KEY benar**")
+        await Bot.send_message(user_id, "**lagi ngecek HEROKU_API_KEY**")
         
-    api_id_msg = await Bukan.ask(user_id, "**Tolong masukkan** `API_ID`\nDapatkan di my.telegram.org.", filters=filters.text)
+    api_id_msg = await Bot.ask(user_id, "**Masukin** `API_ID` jing...", filters=filters.text)
     if await is_cancel(heroku_api):
         return
     api_id = int(api_id_msg.text)
-    api_hash_msg = await Bukan.ask(user_id, "**Tolong masukkan** `API_HASH`\nDapatkan di my.telegram.org.", filters=filters.text)
+    api_hash_msg = await Bot.ask(user_id, "**Masukin** `API_HASH` jing...", filters=filters.text)
     if await is_cancel(heroku_api):
         return
     api_hash = api_hash_msg.text
-    phone_number_msg = await Bukan.ask(user_id, 'Sekarang kirimkan `PHONE_NUMBER` Anda beserta kode negaranya. \nContoh : `+19876543210`', filters=filters.text)
+    phone_number_msg = await Bot.ask(user_id, 'Masukin nomer telemu bangsat, Jangan nomer mamakmu. \nContoh : `+19876543210`', filters=filters.text)
     phone_number = phone_number_msg.text
     client = Client(name="user", api_id=api_id, api_hash=api_hash, in_memory=True)
     await client.connect()
     try:
         code = await client.send_code(phone_number)
     except ApiIdInvalid:
-        await message.reply('`API_ID` dan `API_HASH` Kombinasi tidak valid. Silakan mulai membuat sesi lagi.')
+        await message.reply('`API_ID` dan `API_HASH` Kombinasinya ga valid. Lu Tolol apa gimane?, ulangin dari awal geh jing...')
         return
     except PhoneNumberInvalid:
-        await message.reply('`PHONE_NUMBER` Tidak valid. Silakan mulai membuat sesi lagi')
+        await message.reply('`Nomer telemu` Tidak valid. Pasti yg kau masukin tadi nomer mamakmu.\n Ulangin jing...')
         return
     try:
-        phone_code_msg = await Bukan.ask(user_id, "Silakan periksa OTP di akun telegram resmi. Jika Anda mendapatkannya, Kirim OTP di sini setelah membaca format di bawah ini. \nJika kode OTP dalam bentuk ~ `12345`, **silakan kirim sebagai** `1 2 3 4 5`.", filters=filters.text, timeout=600)
+        phone_code_msg = await Bot.ask(user_id, "Masukin Kodenya, make spasi ya pler\nContoh : 1 2 3 4 5", filters=filters.text, timeout=600)
     except TimeoutError:
-        await message.reply('Batas waktu tercapai 10 menit. Silakan mulai membuat sesi lagi.')
+        await message.reply('Ahh goblok, kelamaan ngantuk gua, ulangin kalo lu mau bikin lagi')
     phone_code = phone_code_msg.text.replace(" ", "")
     try:
         await client.sign_in(phone_number, code.phone_code_hash, phone_code)
     except PhoneCodeInvalid:
-        await message.reply('OTP is invalid. Please start generating session again.')
+        await message.reply('Kodenya Salah GOBLOK')
         return
     except PhoneCodeExpired:
-        await message.reply('Kode OTP Kadaluarsa. Silakan mulai membuat sesi lagi.')
+        await message.reply('Kodenya Kadaluwarsa TOLOL...')
         return
     except SessionPasswordNeeded:
         try:
-            two_step_msg = await Bukan.ask(user_id, 'Akun Anda telah mengaktifkan verifikasi dua langkah. Harap berikan kata sandinya.', filters=filters.text, timeout=300)
+            two_step_msg = await Bot.ask(user_id, 'Aelah make dipassword lagi akun jelek, MASUKIN PASSWORD AKUN LU KESINI NGENTOT.', filters=filters.text, timeout=300)
         except TimeoutError:
-            await message.reply('Batas waktu tercapai 5 menit. Silakan mulai membuat sesi lagi.')
+            await message.reply('Ahh goblok, kelamaan ngantuk gua, ulangin kalo lu mau bikin lagi.')
             return
         try:
             password = two_step_msg.text
             await client.check_password(password=password)
         except PasswordHashInvalid:
-            await two_step_msg.reply('Kata sandi salah. Silakan mulai membuat sesi lagi.', quote=True)
+            await two_step_msg.reply('Katasandimu salah Tolol, makanya gausa make password jing....', quote=True)
             return
     session = await client.export_session_string()
-    text = f"**PYROGRAM V2 STRING SESSION** \n\n`{session}` \n\nGenerated by @PrimeSupportGroup"
+    text = f"**STRINGNYA DAH JADI NIH JING...** \n\n`{session}` \n\nMinimal bilang makasih dulu."
     await client.send_message("me", text)
     await client.disconnect()
     
-    mongo_msg = await Bukan.ask(user_id, "**Tolong masukkan** `MONGO_URI`\nKamu bisa dapatkan di mongodb.com.", filters=filters.text)
+    mongo_msg = await Bot.ask(user_id, "**Masukin** `MONGO_URI`\nAmbilnya dimana?, Usaha ngentot jangan nanya mulu anjing.", filters=filters.text)
     if await is_cancel(heroku_api):
         return
-    name_ku = "prime" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    name_ku = "Meki" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     memek.create_app(name=name_ku, region_id_or_name="eu")
     
     mongo_uri = mongo_msg.text
@@ -191,7 +188,7 @@ async def prime_userbot(client, message):
     var_heroku["HEROKU_APP_NAME"] = name_ku
     var_heroku["MONGO_URI"] = mongo_uri
 
-    await Bukan.send_message(user_id, "✅ **Proses deploy Prime Userbot, Harap tunggu.. Akan ada pesan dari saya jika sudah siap untuk di-deploy ... Menunggu 3-5 menit**")
+    await Bot.send_message(user_id, "✅ **Lagi proses deploy, Tungguin ae sambil Coli...**")
 
     buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git'] 
     kontol.update_buildpacks(buildpack_urls)
@@ -213,38 +210,38 @@ async def prime_userbot(client, message):
     
     kontol.process_formation()["worker"].scale(1)
 
-    await Bukan.send_message(user_id, "**✅ Prime Userbot Telah berhasil di deploy**")
+    await Bot.send_message(user_id, "**✅ Done mas**")
     
 
 async def prime_userbot1(client, message):
     user_id = message.chat.id
-    heroku_api = await Bukan.ask(user_id, "**Silahkan masukkan HEROKU_API anda**\n\n[KLIK DI SINI](https://dashboard.heroku.com/account/applications/authorizations/new)", filters=filters.text)
+    heroku_api = await Bot.ask(user_id, "**Silahkan masukkan HEROKU_API anda**\n\n[KLIK DI SINI](https://dashboard.heroku.com/account/applications/authorizations/new)", filters=filters.text)
     if await is_cancel(heroku_api):
         return
     api_heroku = heroku_api.text
     memek = heroku3.from_key(api_heroku)
     hasil_conn = test_connection(memek)
     if not hasil_conn:
-        await Bukan.send_message(user_id, "**HEROKU_API Salah silahkan klik** /start")
+        await Bot.send_message(user_id, "**HEROKU_API Salah silahkan klik** /start")
         return
     else:
-        await Bukan.send_message(user_id, "**HEROKU_API_KEY benar**")
+        await Bot.send_message(user_id, "**HEROKU_API_KEY benar**")
     
-    api_id_msg = await Bukan.ask(user_id, "**Tolong masukkan** `API_ID`\nDapatkan di my.telegram.org.")
+    api_id_msg = await Bot.ask(user_id, "**Tolong masukkan** `API_ID`\nDapatkan di my.telegram.org.")
     if await is_cancel(heroku_api):
         return
     api_id = int(api_id_msg.text)
-    api_hash_msg = await Bukan.ask(user_id, "**Tolong masukkan** `API_HASH`\nDapatkan di my.telegram.org.")
+    api_hash_msg = await Bot.ask(user_id, "**Tolong masukkan** `API_HASH`\nDapatkan di my.telegram.org.")
     if await is_cancel(heroku_api):
         return
     api_hash = api_hash_msg.text
-    session_msg = await Bukan.ask(user_id, "**Tolong masukkan** `SESSION`\nGunakan bot string apa aja dan pilih Pyrogram v2")
+    session_msg = await Bot.ask(user_id, "**Tolong masukkan** `SESSION`\nGunakan bot string apa aja dan pilih Pyrogram v2")
     if await is_cancel(heroku_api):
         return
-    mongo_msg = await Bukan.ask(user_id, "**Tolong masukkan** `MONGO_URI`\nKamu bisa dapatkan di mongodb.com.")
+    mongo_msg = await Bot.ask(user_id, "**Tolong masukkan** `MONGO_URI`\nKamu bisa dapatkan di mongodb.com.")
     if await is_cancel(heroku_api):
         return
-    name_ku = "prime" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    name_ku = "Meki" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     memek.create_app(name=name_ku, region_id_or_name="eu")
     
     
@@ -259,7 +256,7 @@ async def prime_userbot1(client, message):
     var_heroku["HEROKU_APP_NAME"] = name_ku
     var_heroku["MONGO_URI"] = mongo_uri
 
-    await Bukan.send_message(user_id, "✅ **Proses deploy Prime Userbot, Harap tunggu.. Akan ada pesan dari saya jika sudah siap untuk di-deploy ... Menunggu 3-5 menit**")
+    await Bot.send_message(user_id, "✅ **Lagi proses deploy, Tungguin ae sambil Coli...**")
 
     buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git'] 
     kontol.update_buildpacks(buildpack_urls)
@@ -281,7 +278,7 @@ async def prime_userbot1(client, message):
     
     kontol.process_formation()["worker"].scale(1)
 
-    await Bukan.send_message(user_id, "**✅ Prime Userbot Telah berhasil di deploy**")
+    await Bot.send_message(user_id, "**✅ Nah dah berhasil nih mek**")
     
 async def is_cancel(message):
     if "/cancel" in message.text:
@@ -294,5 +291,5 @@ async def is_cancel(message):
         return False
 
 
-Bukan.run()
+Bot.run()
 idle()
