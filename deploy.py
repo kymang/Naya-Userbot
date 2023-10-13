@@ -241,7 +241,7 @@ async def prime_userbot1(client, message):
     mongo_msg = await Bot.ask(user_id, "**Tolong masukkan** `MONGO_URI`\nKamu bisa dapatkan di mongodb.com.")
     if await is_cancel(heroku_api):
         return
-    name_ku = "Meki" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    name_ku = "AmangUbrot" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     memek.create_app(name=name_ku, region_id_or_name="eu")
     
     
