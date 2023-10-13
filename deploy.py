@@ -3,7 +3,6 @@ import asyncio
 import random
 import shlex
 import socket
-import time
 from time import time
 from typing import Tuple
 import heroku3
@@ -31,7 +30,7 @@ from dotenv import load_dotenv
 
 load_dotenv("p.env")
 
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "6520515685:AAHrYg1X4Z5byOQqHW_y7a_BoOvFAJ4dJ1k")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "6450679325:AAH7rDIyR_6eAvqJjbXSQa5XE1kzgAUgi_8")
 API_ID = int(os.environ.get("API_ID", "28358285"))
 API_HASH = os.environ.get("API_HASH", "8930157ab19270574cd27b89f215d49a")
 
@@ -176,14 +175,7 @@ async def prime_userbot(client, message):
     mongo_msg = await Bot.ask(user_id, "**Masukin** `MONGO_URI`\nAmbilnya dimana?, Usaha ngentot jangan nanya mulu anjing.", filters=filters.text)
     if await is_cancel(heroku_api):
         return
-    name_ku = "ubot" + str(int(time.time() * 1000))[-4:].replace(".", "") + str(random.randint(0, 500))
-    name_ku = "a" + name_ku + "z"  # Menambahkan "a" di awal dan "z" di akhir
-    name_ku = name_ku.lower()  # Mengonversi ke huruf kecil jika ada huruf besar
-
-# Pastikan hanya mengandung karakter yang diizinkan
-    name_ku = ''.join(filter(lambda x: x.isalnum() or x == "-", name_ku))
-
-# Selanjutnya, gunakan name_ku dalam pembuatan aplikasi
+    name_ku = "mnge" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     memek.create_app(name=name_ku, region_id_or_name="eu")
     
     mongo_uri = mongo_msg.text
