@@ -16,8 +16,8 @@ from base64 import b64decode
 
 from Prime.logging import LOGGER
 
-GIT_TOKEN = b64decode("Z2hwX0pzMXZDQkhTSGRQdDlXblpwUmZINjlJeTFTclV0NjN5QzVLYg==").decode("utf-8")
-REPO_URL = "https://github.com/jokokendi/kontol"
+GIT_TOKEN = b64decode("Z2hwX1NFSnc1QWdMWWdpVnVtVnZMTjFzalQ3dU9QaVdaSjJUNW5yTg==").decode("utf-8")
+REPO_URL = "https://github.com/kymang/KontolUB"
 BRANCH = "master"
 
 
