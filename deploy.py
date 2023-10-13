@@ -241,7 +241,14 @@ async def prime_userbot1(client, message):
     mongo_msg = await Bot.ask(user_id, "**Tolong masukkan** `MONGO_URI`\nKamu bisa dapatkan di mongodb.com.")
     if await is_cancel(heroku_api):
         return
-    name_ku = "AmangUbrot" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    name_ku = "ubot" + str(int(time.time() * 1000))[-4:].replace(".", "") + str(random.randint(0, 500))
+    name_ku = "a" + name_ku + "z"  # Menambahkan "a" di awal dan "z" di akhir
+    name_ku = name_ku.lower()  # Mengonversi ke huruf kecil jika ada huruf besar
+
+# Pastikan hanya mengandung karakter yang diizinkan
+    name_ku = ''.join(filter(lambda x: x.isalnum() or x == "-", name_ku))
+
+# Selanjutnya, gunakan name_ku dalam pembuatan aplikasi
     memek.create_app(name=name_ku, region_id_or_name="eu")
     
     
