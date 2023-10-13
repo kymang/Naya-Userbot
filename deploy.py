@@ -109,7 +109,7 @@ async def cbsession(client, callback_query):
     
 
 async def prime_userbot(client, message):
-    user_id = message.chat.id
+    user_id = message.from_user.id
     heroku_api = await Bot.ask(user_id, "**Masukin HEROKU_API jing...**\n\n[Ambil Disini Pler](https://dashboard.heroku.com/account/applications/authorizations/new)", filters=filters.text)
     if await is_cancel(heroku_api):
         return
