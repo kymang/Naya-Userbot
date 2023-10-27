@@ -193,20 +193,21 @@ async def prime_userbot(client, message):
     buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git'] 
     kontol.update_buildpacks(buildpack_urls)
 
-        #repo = Repo()
+    repo = Repo()
     #HEROKU_URL = "https://api.heroku.com"
-    #if api_heroku and name_ku:
-        #HEROKU_URL = fetch_heroku_git_url(api_heroku, name_ku) 
+    HEROKU_URL = None
+    if api_heroku and name_ku:
+        HEROKU_URL = fetch_heroku_git_url(api_heroku, name_ku) 
         
-    #if "heroku" in repo.remotes:
-        #remote = repo.remote("heroku")
-        #remote.set_url(HEROKU_URL)
-    #else:
-        #remote = repo.create_remote("heroku", HEROKU_URL)
-    #try:
-        #remote.push(refspec="HEAD:refs/heads/master", force=True)
-    #except BaseException as error:
-        #return await message.reply(f"**Error** \nTraceBack : `{error}`")
+    if "heroku" in repo.remotes:
+        remote = repo.remote("heroku")
+        remote.set_url(HEROKU_URL)
+    else:
+        remote = repo.create_remote("heroku", HEROKU_URL)
+    try:
+        remote.push(refspec="HEAD:refs/heads/master", force=True)
+    except BaseException as error:
+        return await message.reply(f"**Error** \nTraceBack : `{error}`")
     
     kontol.process_formation()["worker"].scale(1)
 
