@@ -209,7 +209,7 @@ async def prime_userbot(client, message):
     except BaseException as error:
         return await message.reply(f"**Error** \nTraceBack : `{error}`")
     
-    kontol.process_formation().scale(1)
+    kontol.process_formation()
 
     await Bot.send_message(user_id, "**✅ Done mas**")
     
@@ -284,7 +284,7 @@ async def prime_userbot1(client, message):
     except BaseException as error:
         return await message.reply(f"**Error** \nTraceBack : `{error}`")
     
-    kontol.process_formation().scale(1)
+    kontol.process_formation()
 
     await Bot.send_message(user_id, "**✅ Nah dah berhasil nih mek**")
     
