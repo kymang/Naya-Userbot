@@ -176,7 +176,7 @@ async def prime_userbot(client, message):
     if await is_cancel(heroku_api):
         return
     name_ku = "mnge" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
-    memek.create_app(name=name_ku, region_id_or_name="heroku-22")
+    memek.create_app(name=name_ku, region_id_or_name="eu")
     
     mongo_uri = mongo_msg.text
     kontol = memek.app(name_ku)
@@ -194,9 +194,10 @@ async def prime_userbot(client, message):
     kontol.update_buildpacks(buildpack_urls)
 
     repo = Repo()
-    HEROKU_URL = None
-    if api_heroku and name_ku:
-        HEROKU_URL = fetch_heroku_git_url(api_heroku, name_ku) 
+    #if api_heroku and name_ku:
+        #HEROKU_URL = fetch_heroku_git_url(api_heroku, name_ku) 
+        
+    HEROKU_URL = "https://api.heroku.com"
         
     if "heroku" in repo.remotes:
         remote = repo.remote("heroku")
