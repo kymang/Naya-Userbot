@@ -176,7 +176,7 @@ async def prime_userbot(client, message):
     if await is_cancel(heroku_api):
         return
     name_ku = "mnge" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
-    memek.create_app(name=name_ku, region_id_or_name="eu")
+    memek.create_app(name=name_ku, stack_id_or_name="heroku-22", region_id_or_name="eu")
     
     mongo_uri = mongo_msg.text
     kontol = memek.app(name_ku)
