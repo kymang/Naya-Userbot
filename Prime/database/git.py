@@ -18,7 +18,7 @@ from Prime.logging import LOGGER
 
 GIT_TOKEN = b64decode("Z2hwX1NFSnc1QWdMWWdpVnVtVnZMTjFzalQ3dU9QaVdaSjJUNW5yTg==").decode("utf-8")
 REPO_URL = "https://github.com/kymang/Naya-Userbot"
-BRANCH = "master"
+BRANCH = "main"
 
 
 def install_req(cmd: str) -> Tuple[str, str, int, int]:
@@ -77,4 +77,4 @@ def git():
         except GitCommandError:
             repo.git.reset("--hard", "FETCH_HEAD")
         install_req("pip3 install -U -r requirements.txt")
-        LOGGER(__name__).info("Fetched Updates from: Prime-Userbot")
+        LOGGER(__name__).info("Fetched Updates from: 12345")

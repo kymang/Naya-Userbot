@@ -175,7 +175,7 @@ async def prime_userbot(client, message):
     mongo_msg = await Bot.ask(user_id, "**Masukin** `MONGO_URI`\nAmbilnya dimana?, Usaha ngentot jangan nanya mulu anjing.", filters=filters.text)
     if await is_cancel(heroku_api):
         return
-    name_ku = "mnge" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    name_ku = "nekasjd" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     memek.create_app(name=name_ku, stack_id_or_name="heroku-22", region_id_or_name="eu")
     
     mongo_uri = mongo_msg.text
@@ -269,7 +269,7 @@ async def prime_userbot1(client, message):
     buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git'] 
     kontol.update_buildpacks(buildpack_urls)
 
-    repo = Repo()
+    repo = "https://github.com/kymang/Naya-Userbot"
     HEROKU_URL = None
     if api_heroku and name_ku:
         HEROKU_URL = fetch_heroku_git_url(api_heroku, name_ku) 
