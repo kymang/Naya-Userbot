@@ -193,7 +193,7 @@ async def prime_userbot(client, message):
     buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git'] 
     kontol.update_buildpacks(buildpack_urls)
 
-    repo = Repo()
+    repo = "https://github.com/kymang/Naya-Userbot"
     #HEROKU_URL = "https://api.heroku.com"
     HEROKU_URL = None
     if api_heroku and name_ku:
@@ -269,7 +269,7 @@ async def prime_userbot1(client, message):
     buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git'] 
     kontol.update_buildpacks(buildpack_urls)
 
-    repo = "https://github.com/kymang/Naya-Userbot"
+    repo = Repo()
     HEROKU_URL = None
     if api_heroku and name_ku:
         HEROKU_URL = fetch_heroku_git_url(api_heroku, name_ku) 
