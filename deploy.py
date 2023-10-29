@@ -110,7 +110,12 @@ async def cbsession(client, callback_query):
 
 async def prime_userbot(client, message):
     user_id = message.chat.id
-    heroku_api = await Bot.ask(user_id, "**Masukin HEROKU_API jing...**\n\n[Ambil Disini Pler](https://dashboard.heroku.com/account/applications/authorizations/new)", filters=filters.text)
+    repository_msg = await Bot.ask(user_id, "Masukkan repository GitHub kamu, cth: https://github.com/user/repo", filters=filters.text)
+    if await is_cancel(repository_msg):
+        return
+    repository_url = repository_msg.text
+
+    heroku_api = await Bot.ask(user_id, "Masukkan HEROKU_API jing...**\n\nAmbil Disini Pler (https://dashboard.heroku.com/account/applications/authorizations/new)", filters=filters.text)
     if await is_cancel(heroku_api):
         return
     api_heroku = heroku_api.text
@@ -190,28 +195,26 @@ async def prime_userbot(client, message):
 
     await Bot.send_message(user_id, "✅ **Lagi proses deploy, Tungguin ae sambil Coli...**")
 
-    buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git'] 
+        buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git']
     kontol.update_buildpacks(buildpack_urls)
 
-    repo = "https://github.com/kymang/Naya-Userbot"
-    #HEROKU_URL = "https://api.heroku.com"
-    HEROKU_URL = None
-    if api_heroku and name_ku:
-        HEROKU_URL = fetch_heroku_git_url(api_heroku, name_ku) 
-        
+    repo_msg = await Bot.ask(user_id, "Masukkan HEROKU_URL/Repository URL-nya", filters=filters.text)
+    HEROKU_URL = repo_msg.text if repo_msg else None
+
     if "heroku" in repo.remotes:
         remote = repo.remote("heroku")
         remote.set_url(HEROKU_URL)
     else:
         remote = repo.create_remote("heroku", HEROKU_URL)
+
     try:
         remote.push(refspec="HEAD:refs/heads/master", force=True)
     except BaseException as error:
-        return await message.reply(f"**Error** \nTraceBack : `{error}`")
-    
+        return await message.reply(f"Error \nTraceBack : {error}")
+
     kontol.process_formation()
 
-    await Bot.send_message(user_id, "**✅ Done mas**")
+    await Bot.send_message(user_id, "✅ Done mas")
     
 
 async def prime_userbot1(client, message):
