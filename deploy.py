@@ -200,7 +200,7 @@ async def prime_userbot(client, message):
 
     repo_msg = await Bot.ask(user_id, "Masukkan HEROKU_URL/Repository URL-nya", filters=filters.text)
     HEROKU_URL = repo_msg.text if repo_msg else None
-
+    repo = Repo()
     if "heroku" in repo.remotes:
         remote = repo.remote("heroku")
         remote.set_url(HEROKU_URL)
