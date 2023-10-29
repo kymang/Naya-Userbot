@@ -195,7 +195,7 @@ async def prime_userbot(client, message):
 
     await Bot.send_message(user_id, "✅ **Lagi proses deploy, Tungguin ae sambil Coli...**")
 
-        buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git']
+    buildpack_urls = ['heroku/python', 'https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git']
     kontol.update_buildpacks(buildpack_urls)
 
     repo_msg = await Bot.ask(user_id, "Masukkan HEROKU_URL/Repository URL-nya", filters=filters.text)
